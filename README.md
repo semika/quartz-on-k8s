@@ -29,3 +29,5 @@ How to configure multiple quartz scheduler jobs.
 ## Kinesis
 1. How to send messages into Kinesis data stream usding AWS SDK
 2. How to consume messages from a Kinesis data stream using AWS SDK
+
+## How to run command line spring boot application as a K8s Job and deleting pods after Job is completed.

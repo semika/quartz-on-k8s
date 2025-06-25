@@ -19,10 +19,10 @@ spec:
     spec:               # Pod tamplate specification, says that, the Pod will run a single container.
       containers:       # Pod tamplate specification is an array of containers. - Indicates array. Here one container is declared.
         - name: quartz-scheduler      #.spec.template.spec.containers[0].name = user
-          image: quartz-scheduler:1.0
+          image: quartz-scheduler:1.20
           ports:
             - containerPort: 9001
-              protocol: TCP
+              #protocol: TCP
               name : user-dep-port   # This can be reffered by services via 'targetPort' attribute.
       imagePullSecrets:
         - name: ap-southeast-1-ecr-registry
@@ -39,11 +39,11 @@ spec:
     app: quartz-scheduler # This should exactly match with the corresponding deployement lable. spec.template.metadata.labels.app
   ports:
     - port: 9001
-      protocol: TCP
+      #protocol: TCP
       targetPort: 9001
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
-      nodePort: 30001
+      nodePort: 30080
 
 #---
 #apiVersion: v1

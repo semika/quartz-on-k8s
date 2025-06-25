@@ -21,7 +21,11 @@ public class SampleJob implements Job {
 
         //logger.info("Job ** {} ** fired @ {}", context.getJobDetail().getKey().getName(), context.getFireTime());
 
-        jobService.executeSampleJob();
+        try {
+            jobService.executeSampleJob();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         //logger.info("Next job scheduled @ {}", context.getNextFireTime());
     }

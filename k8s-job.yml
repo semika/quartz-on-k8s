@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k8s-job-example
+spec:
+  ttlSecondsAfterFinished: 60
+  parallelism: 1
+  completions: 1
+  template:
+    spec:
+      containers:
+        - name: k8s-job-example
+          image: quartz-scheduler:1.28
+         # command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 1

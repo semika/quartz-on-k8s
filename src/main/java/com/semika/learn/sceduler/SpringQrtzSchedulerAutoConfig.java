@@ -1,16 +1,16 @@
 package com.semika.learn.sceduler;
 
 import com.semika.learn.config.AutoWiringSpringBeanJobFactory;
+import com.semika.learn.service.SampleJobService;
 import jakarta.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-import org.quartz.JobDetail;
-import org.quartz.SimpleTrigger;
-import org.quartz.Trigger;
+import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.quartz.QuartzDataSource;
@@ -166,18 +166,22 @@ public class SpringQrtzSchedulerAutoConfig {
     }
 
     @Bean(name="trigger")
-    public SimpleTriggerFactoryBean trigger(@Qualifier("jobDetail") JobDetail job) {
+    public CronTrigger trigger(@Qualifier("jobDetail") JobDetail job) {
 
-        SimpleTriggerFactoryBean trigger = new SimpleTriggerFactoryBean();
-        trigger.setJobDetail(job);
+//        SimpleTriggerFactoryBean trigger = new SimpleTriggerFactoryBean();
+//        trigger.setJobDetail(job);
+//        logger.info("Configuring trigger to fire every {} seconds", frequencyInSec);
+//        trigger.set.withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))
+//        trigger.setRepeatInterval(300000);
+//        trigger.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY);
+//        trigger.setName("Qrtz_Trigger");
+//        return trigger;
 
-        int frequencyInSec = 60;
-        logger.info("Configuring trigger to fire every {} seconds", frequencyInSec);
-
-        trigger.setRepeatInterval(frequencyInSec * 1000);
-        trigger.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY);
-        trigger.setName("Qrtz_Trigger");
-        return trigger;
+        return TriggerBuilder.newTrigger()
+                .forJob(job)
+                .withIdentity("Qrtz_Trigger")
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))
+                .build();
     }
 
     @Bean

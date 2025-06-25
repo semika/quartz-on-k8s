@@ -1,5 +1,6 @@
 package com.semika.learn.service;
 
+import com.semika.learn.model.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -22,9 +25,27 @@ public class SampleJobService {
 
     private AtomicInteger count = new AtomicInteger();
 
-    public void executeSampleJob() {
-        //readMessage();
+    public void executeSampleJob() throws InterruptedException {
         logger.info("The sample job has begun...");
+        createObjects();
+        TimeUnit.MINUTES.sleep(1);
+        logger.info("The sample job has ended...");
+    }
+
+    private void createObjects() {
+
+        List empList = new ArrayList(1000000);
+        for (int i = 0; i < 1000000; i++) {
+            Employee employee = new Employee();
+            employee.setId("3434er343er3rerergfgfg3434");
+            employee.setFirstName("Semika");
+            employee.setLastName("Siriwardana");
+            employee.setAge(45);
+            employee.setAddress("We manage the infrastructure, hardware and network. While you simply enjoy the weather forecast data and leave rest on us.");
+            empList.add(employee);
+            //logger.info("Employee" + employee.toString());
+        }
+        empList = null;
     }
 
     private void readMessage() {
