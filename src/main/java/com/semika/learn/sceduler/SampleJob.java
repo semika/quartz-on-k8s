@@ -1,5 +1,6 @@
 package com.semika.learn.sceduler;
 
+import com.semika.learn.service.ProductProcessService;
 import com.semika.learn.service.SampleJobService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -9,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 public class SampleJob implements Job {
 
@@ -17,16 +20,15 @@ public class SampleJob implements Job {
     @Autowired
     private SampleJobService jobService;
 
+    @Autowired
+    private ProductProcessService productProcessService;
+
     public void execute(JobExecutionContext context) throws JobExecutionException {
-
-        //logger.info("Job ** {} ** fired @ {}", context.getJobDetail().getKey().getName(), context.getFireTime());
-
         try {
-            jobService.executeSampleJob();
-        } catch (InterruptedException e) {
+            //jobService.executeSampleJob();
+            productProcessService.parseJson();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        //logger.info("Next job scheduled @ {}", context.getNextFireTime());
     }
 }

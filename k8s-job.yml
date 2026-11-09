@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: k8s-job-example
-          image: quartz-scheduler:1.28
+          image: quartz-scheduler:1.36
          # command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
   backoffLimit: 1

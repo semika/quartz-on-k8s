@@ -19,7 +19,7 @@ spec:
     spec:               # Pod tamplate specification, says that, the Pod will run a single container.
       containers:       # Pod tamplate specification is an array of containers. - Indicates array. Here one container is declared.
         - name: quartz-scheduler      #.spec.template.spec.containers[0].name = user
-          image: quartz-scheduler:1.20
+          image: quartz-scheduler:1.33
           ports:
             - containerPort: 9001
               #protocol: TCP

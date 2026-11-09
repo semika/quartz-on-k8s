@@ -1,0 +1,17 @@
+package com.semika.learn.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
+@Getter
+@Setter
+public class TagDto implements Serializable {
+    @JsonProperty("label")
+    private String label;
+
+    @JsonProperty("type")
+    private String type;
+}

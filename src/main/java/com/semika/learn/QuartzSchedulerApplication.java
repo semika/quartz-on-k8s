@@ -1,5 +1,6 @@
 package com.semika.learn;
 
+import com.semika.learn.service.ProductProcessService;
 import com.semika.learn.service.SampleJobService;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -18,9 +19,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class QuartzSchedulerApplication {
 
 	private SampleJobService sampleJobService;
+	private ProductProcessService productProcessService;
 
-	public QuartzSchedulerApplication(SampleJobService sampleJobService) {
+	public QuartzSchedulerApplication(SampleJobService sampleJobService,
+									  ProductProcessService productProcessService) {
 		this.sampleJobService = sampleJobService;
+		this.productProcessService = productProcessService;
 	}
 
 	public static void main(String[] args) {
@@ -46,7 +50,9 @@ public class QuartzSchedulerApplication {
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
 			///for (String arg : args) {
-			sampleJobService.executeSampleJob();
+			//sampleJobService.executeSampleJob();
+			productProcessService.parseJson();
+			//delay 30 min
 			System.exit(0); // Success
 			//}
 		};
